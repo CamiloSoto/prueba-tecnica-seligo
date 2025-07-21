@@ -1,0 +1,35 @@
+.qodo
+# Node
+node_modules/
+dist/
+.env
+.env.local
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Prisma
+/prisma/dev.db
+/prisma/migrations/
+*.sqlite
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Docker
+docker-compose.override.yml
+
+# Others
+coverage/
