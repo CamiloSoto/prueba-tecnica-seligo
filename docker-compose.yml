@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_local
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: seligo
+      POSTGRES_PASSWORD: 02d10b4dc320e24299b240f1d2dd629e
+      POSTGRES_DB: prueba_tecnica
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
