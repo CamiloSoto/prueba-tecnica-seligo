@@ -49,9 +49,8 @@ exports.generateForecast = async (req, res) => {
         confidenceLevel === 0.95 ? 0.2 : confidenceLevel === 0.9 ? 0.15 : 0.1;
       const upper = Math.ceil(base * (1 + margin));
       const lower = Math.floor(base * (1 - margin));
-      // TODO: Reemplazar con `req.user.id` en producción
       forecasts.push({
-        userId: 1,
+        userId: req.user.id,
         sku,
         forecastDate,
         baseValue: base,
@@ -69,5 +68,15 @@ exports.generateForecast = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Forecast generation failed" });
+  }
+};
+
+exports.getForecasts = async (req, res) => {
+  const userId = req.user.id;
+  try {
+    const forecasts = await prisma.forecast.findMany({ where: { userId } });
+    res.json(forecasts);
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching forecasts" });
   }
 };

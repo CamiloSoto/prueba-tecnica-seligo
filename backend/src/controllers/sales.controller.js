@@ -10,7 +10,7 @@ const salesSchema = z.object({
     .min(3)
     .max(20)
     .regex(/^[a-zA-Z0-9]+$/),
-  fecha: z.string(), 
+  fecha: z.string(),
   cantidad_vendida: z.coerce.number().int().positive().max(100000),
   precio: z.coerce
     .number()
@@ -30,7 +30,7 @@ function parseDate(str) {
   if (parts[0].length === 4) return new Date(str);
   if (parseInt(parts[1]) > 12)
     return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
-  return new Date(`${parts[2]}-${parts[0]}-${parts[1]}`); 
+  return new Date(`${parts[2]}-${parts[0]}-${parts[1]}`);
 }
 
 exports.uploadSalesFile = async (req, res) => {
@@ -54,8 +54,7 @@ exports.uploadSalesFile = async (req, res) => {
       records = xlsx.utils.sheet_to_json(sheet);
     }
 
-    // TODO: extraer de req.user
-    const userId = 1; 
+    const userId = req.user.id;
 
     const validated = [];
 
@@ -90,5 +89,15 @@ exports.uploadSalesFile = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Upload failed" });
+  }
+};
+
+exports.getSalesData = async (req, res) => {
+  const userId = req.user.id;
+  try {
+    const sales = await prisma.salesData.findMany({ where: { userId } });
+    res.json(sales);
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching sales data" });
   }
 };

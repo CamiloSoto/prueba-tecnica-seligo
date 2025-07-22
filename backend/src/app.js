@@ -1,19 +1,26 @@
-const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan');
+const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
 
-const authRoutes = require('./routes/auth.routes');
-const salesRoutes = require('./routes/sales.routes');
-const forecastRoutes = require('./routes/forecast.routes');
+const authRoutes = require("./routes/auth.routes");
+const salesRoutes = require("./routes/sales.routes");
+const forecastRoutes = require("./routes/forecast.routes");
+const configRoutes = require("./routes/config.routes");
 
 const app = express();
 
-app.use(cors());
-app.use(morgan('dev'));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
+app.use(morgan("dev"));
 app.use(express.json());
 
-app.use('/api/auth', authRoutes);
-app.use('/api/sales', salesRoutes);
-app.use('/api/forecast', forecastRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/sales", salesRoutes);
+app.use("/api/forecast", forecastRoutes);
+app.use("/api/config", configRoutes);
 
 module.exports = app;
