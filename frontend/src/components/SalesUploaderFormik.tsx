@@ -212,9 +212,7 @@ const SalesUploaderFormik = () => {
           <option>Open this select menu</option>
           <option value={0.8}>80%</option>
           <option value={0.9}>90%</option>
-          <option value={0.95} selected>
-            95%
-          </option>
+          <option value={0.95}>95%</option>
         </select>
 
         {formik.touched.confidenceLevel && formik.errors.confidenceLevel && (
