@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { useState } from "react";
 import api from "../services/api";
 import { AxiosError } from "axios";
+import Swal from "sweetalert2";
 
 type FormValues = {
   file: File | null;
@@ -33,6 +34,17 @@ const SalesUploaderFormik = () => {
     onSubmit: async (values) => {
       if (!values.file) return;
 
+      const result = await Swal.fire({
+        title: "¿Deseas subir este archivo?",
+        text: `Archivo: ${values.file.name}`,
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Sí, subir",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (!result.isConfirmed) return;
+
       const formData = new FormData();
       formData.append("file", values.file);
 
@@ -50,10 +62,25 @@ const SalesUploaderFormik = () => {
 
         setStatus("success");
         setMessage("Archivo subido correctamente.");
+
+        await Swal.fire({
+          title: "Éxito",
+          text: "El archivo fue procesado correctamente.",
+          icon: "success",
+          timer: 3000,
+        });
       } catch (err) {
         const error = err as AxiosError<{ error: string }>;
         setStatus("error");
-        setMessage(error?.response?.data?.error || "Error al subir el archivo");
+        setMessage(
+          error?.response?.data?.error || "Error al subir el archivo."
+        );
+
+        await Swal.fire({
+          title: "Error",
+          text: message,
+          icon: "error",
+        });
       }
     },
   });

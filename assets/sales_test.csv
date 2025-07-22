@@ -1,0 +1,11 @@
+sku,fecha,cantidad_vendida,precio,promocion_activa,categoria
+PROD001,2024-01-15,125,29.99,false,electronica
+PROD001,2024-01-16,143,29.99,true,electronica
+PROD002,2024-01-15,87,15.50,false,hogar
+PROD003,2024-01-15,234,8.99,false,consumo
+PROD002,2024-01-17,91,15.50,true,hogar
+PROD001,2024-02-01,160,29.99,false,electronica
+PROD003,2024-02-01,245,8.99,true,consumo
+PROD003,2024-02-02,239,8.99,false,consumo
+PROD004,2024-02-03,132,45.00,false,moda
+PROD005,2024-02-04,50,75.99,true,lujo
