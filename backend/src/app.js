@@ -4,6 +4,7 @@ const morgan = require('morgan');
 
 const authRoutes = require('./routes/auth.routes');
 const salesRoutes = require('./routes/sales.routes');
+const forecastRoutes = require('./routes/forecast.routes');
 
 const app = express();
 
@@ -13,5 +14,6 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/sales', salesRoutes);
+app.use('/api/forecast', forecastRoutes);
 
 module.exports = app;
