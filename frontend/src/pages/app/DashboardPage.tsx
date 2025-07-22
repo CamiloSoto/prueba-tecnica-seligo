@@ -7,6 +7,7 @@ import SalesTable from "../../components/SalesTable";
 import ForecastTable from "../../components/ForecastTable";
 import ConfigForm from "../../components/ConfigForm";
 import SalesUploaderFormik from "../../components/SalesUploaderFormik";
+import ForecastChart from "../../components/ForecastChart";
 
 const DashboardPage = () => {
   const [sales, setSales] = useState<SalesData[]>([]);
@@ -37,6 +38,7 @@ const DashboardPage = () => {
       <SalesUploaderFormik />
 
       {/* Tabla de ventas */}
+      <ForecastChart data={forecasts} />
       <SalesTable data={sales} />
 
       {/* Pronósticos */}
