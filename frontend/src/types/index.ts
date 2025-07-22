@@ -28,3 +28,13 @@ export interface Configuration {
   alertThresholds: string;
   notificationSettings: string;
 }
+
+
+export interface RawSale {
+  sku: string;
+  fecha: string;
+  cantidad_vendida: number;
+  precio: number;
+  promocion_activa: boolean;
+  categoria: string;
+}

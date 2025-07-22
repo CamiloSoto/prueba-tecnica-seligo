@@ -1,13 +1,21 @@
-import { useDropzone } from "react-dropzone";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 import { useState } from "react";
-import api from "../services/api";
+
+import { useDropzone } from "react-dropzone";
 import { AxiosError } from "axios";
+import { useFormik } from "formik";
 import Swal from "sweetalert2";
+import * as Yup from "yup";
+
+import Papa from "papaparse";
+import * as XLSX from "xlsx";
+
+import type { RawSale } from "../types";
+import api from "../services/api";
 
 type FormValues = {
   file: File | null;
+  forecastHorizon: number;
+  confidenceLevel: number;
 };
 
 const validationSchema = Yup.object().shape({
@@ -19,6 +27,8 @@ const validationSchema = Yup.object().shape({
     .test("fileSize", "El archivo debe pesar menos de 10MB", (file) =>
       file ? file.size <= 10 * 1024 * 1024 : false
     ),
+  forecastHorizon: Yup.number().min(1).max(6).required("Requerido"),
+  confidenceLevel: Yup.number().oneOf([0.8, 0.9, 0.95]).required("Requerido"),
 });
 
 const SalesUploaderFormik = () => {
@@ -29,7 +39,7 @@ const SalesUploaderFormik = () => {
   const [message, setMessage] = useState("");
 
   const formik = useFormik<FormValues>({
-    initialValues: { file: null },
+    initialValues: { file: null, forecastHorizon: 6, confidenceLevel: 0.95 },
     validationSchema,
     onSubmit: async (values) => {
       if (!values.file) return;
@@ -68,6 +78,39 @@ const SalesUploaderFormik = () => {
           text: "El archivo fue procesado correctamente.",
           icon: "success",
           timer: 3000,
+        });
+
+        let skus: string[] = [];
+
+        if (values.file.name.endsWith(".csv")) {
+          const text = await values.file.text();
+          const parsed = Papa.parse(text, { header: true });
+          const rows = parsed.data as RawSale[];
+          skus = [...new Set(rows.map((r) => r.sku))];
+        } else if (values.file.name.endsWith(".xlsx")) {
+          const arrayBuffer = await values.file.arrayBuffer();
+          const workbook = XLSX.read(arrayBuffer);
+          const sheet = workbook.Sheets[workbook.SheetNames[0]];
+          const rows = XLSX.utils.sheet_to_json(sheet) as RawSale[];
+          skus = [...new Set(rows.map((r: RawSale) => r.sku))];
+        }
+
+        for (const sku of skus) {
+          try {
+            await api.post("/forecast/generate", {
+              sku,
+              horizon: values.forecastHorizon,
+              confidenceLevel: values.confidenceLevel,
+            });
+          } catch (err) {
+            console.error(`Error generando forecast para ${sku}`, err);
+          }
+        }
+
+        await Swal.fire({
+          title: "Forecast generado",
+          text: `Se generaron pronósticos para ${skus.length} SKU(s).`,
+          icon: "success",
         });
       } catch (err) {
         const error = err as AxiosError<{ error: string }>;
@@ -144,6 +187,42 @@ const SalesUploaderFormik = () => {
       {formik.touched.file && formik.errors.file && (
         <div className="text-danger mt-2">{formik.errors.file}</div>
       )}
+
+      <div className="form-group">
+        <label>Horizonte de pronóstico (meses)</label>
+        <select className="form-select" name="forecastHorizon">
+          {[1, 2, 3, 4, 5, 6].map((n) => (
+            <option key={n} value={n}>
+              {n}
+            </option>
+          ))}
+        </select>
+
+        {formik.touched.forecastHorizon && formik.errors.forecastHorizon && (
+          <div className="text-danger mt-2">
+            {formik.errors.forecastHorizon}
+          </div>
+        )}
+      </div>
+
+      <div className="form-group mt-2">
+        <label>Confianza</label>
+
+        <select className="form-select" name="confidenceLevel">
+          <option>Open this select menu</option>
+          <option value={0.8}>80%</option>
+          <option value={0.9}>90%</option>
+          <option value={0.95} selected>
+            95%
+          </option>
+        </select>
+
+        {formik.touched.confidenceLevel && formik.errors.confidenceLevel && (
+          <div className="text-danger mt-2">
+            {formik.errors.confidenceLevel}
+          </div>
+        )}
+      </div>
 
       <button
         type="submit"
