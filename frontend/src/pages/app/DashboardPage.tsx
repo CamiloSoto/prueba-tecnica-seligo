@@ -6,6 +6,7 @@ import type { SalesData, Forecast, Configuration } from "../../types";
 import SalesTable from "../../components/SalesTable";
 import ForecastTable from "../../components/ForecastTable";
 import ConfigForm from "../../components/ConfigForm";
+import SalesUploaderFormik from "../../components/SalesUploaderFormik";
 
 const DashboardPage = () => {
   const [sales, setSales] = useState<SalesData[]>([]);
@@ -16,7 +17,7 @@ const DashboardPage = () => {
     const fetchData = async () => {
       const [salesRes, forecastRes, configRes] = await Promise.all([
         api.get("/sales"),
-        api.get("/forecasts"),
+        api.get("/forecast"),
         api.get("/config"),
       ]);
 
@@ -31,8 +32,17 @@ const DashboardPage = () => {
   return (
     <div className="container mt-4">
       <h2>Dashboard</h2>
+
+      {/* Cargar archivo */}
+      <SalesUploaderFormik />
+
+      {/* Tabla de ventas */}
       <SalesTable data={sales} />
+
+      {/* Pronósticos */}
       <ForecastTable data={forecasts} />
+
+      {/* Configuración */}
       {config && <ConfigForm initialValues={config} />}
     </div>
   );

@@ -10,7 +10,8 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
     try {
       const res = await api.post("/auth/login", { email, password });
       localStorage.setItem("token", res.data.accessToken);
-      onLogin(); // Redirige al dashboard
+      localStorage.setItem("refreshToken", res.data.refreshToken);
+      onLogin();
     } catch (err) {
       setError("Credenciales inválidas");
       console.log(err);
