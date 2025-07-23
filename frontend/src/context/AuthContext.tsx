@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     localStorage.clear();
     dispatch({ type: "LOGOUT" });
-    window.location.href = "/";
+    window.location.href = "/login";
   };
 
   return (

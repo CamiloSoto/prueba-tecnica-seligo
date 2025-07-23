@@ -10,7 +10,10 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     try {
-      await login(email, password);
+      const success = await login(email, password);
+      if (success) {
+        window.location.href = "/dashboard";
+      }
     } catch (err) {
       setError("Credenciales inválidas");
       console.log(err);

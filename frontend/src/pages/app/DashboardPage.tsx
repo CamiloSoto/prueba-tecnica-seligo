@@ -8,6 +8,7 @@ import ForecastTable from "../../components/ForecastTable";
 import ConfigForm from "../../components/ConfigForm";
 import SalesUploaderFormik from "../../components/SalesUploaderFormik";
 import ForecastChart from "../../components/ForecastChart";
+import Navbar from "./../../components/Navbar";
 
 const DashboardPage = () => {
   const [sales, setSales] = useState<SalesData[]>([]);
@@ -31,25 +32,28 @@ const DashboardPage = () => {
   }, []);
 
   return (
-    <div className="container mt-4">
-      <h2>Dashboard</h2>
+    <>
+      <Navbar />
+      <div className="container mt-4">
+        <h2>Dashboard</h2>
 
-      <div className="row">
-        <div className="col-md-5">
-          <SalesUploaderFormik />
+        <div className="row">
+          <div className="col-md-5">
+            <SalesUploaderFormik />
+          </div>
+          <div className="col-md-7">
+            <ForecastChart data={forecasts} />
+          </div>
+          <div className="col-md-6">
+            <SalesTable data={sales} />
+          </div>
+          <div className="col-md-6">
+            <ForecastTable data={forecasts} />
+          </div>
         </div>
-        <div className="col-md-7">
-          <ForecastChart data={forecasts} />
-        </div>
-        <div className="col-md-6">
-          <SalesTable data={sales} />
-        </div>
-        <div className="col-md-6">
-          <ForecastTable data={forecasts} />
-        </div>
+        {config && <ConfigForm initialValues={config} />}
       </div>
-      {config && <ConfigForm initialValues={config} />}
-    </div>
+    </>
   );
 };
 
