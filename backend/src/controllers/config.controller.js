@@ -5,6 +5,11 @@ exports.getConfig = async (req, res) => {
   const userId = req.user.id;
   try {
     const config = await prisma.configuration.findUnique({ where: { userId } });
+    if (!config) {
+      return res
+        .status(200)
+        .json({ confidenceLevel: null, forecastHorizon: null });
+    }
     res.json(config);
   } catch {
     res.status(404).json({ error: "No configuration found" });

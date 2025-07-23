@@ -54,11 +54,11 @@ model Forecast {
 }
 
 model Configuration {
-  id                   Int    @id @default(autoincrement())
-  user                 User   @relation(fields: [userId], references: [id])
-  userId               Int    @unique
+  id                   Int   @id @default(autoincrement())
+  user                 User  @relation(fields: [userId], references: [id])
+  userId               Int   @unique
   confidenceLevel      Float
   forecastHorizon      Int
-  alertThresholds      String
-  notificationSettings String
+  alertThresholds      Json
+  notificationSettings Json
 }
