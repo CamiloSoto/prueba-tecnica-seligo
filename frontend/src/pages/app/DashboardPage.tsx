@@ -34,17 +34,20 @@ const DashboardPage = () => {
     <div className="container mt-4">
       <h2>Dashboard</h2>
 
-      {/* Cargar archivo */}
-      <SalesUploaderFormik />
-
-      {/* Tabla de ventas */}
-      <ForecastChart data={forecasts} />
-      <SalesTable data={sales} />
-
-      {/* Pronósticos */}
-      <ForecastTable data={forecasts} />
-
-      {/* Configuración */}
+      <div className="row">
+        <div className="col-md-5">
+          <SalesUploaderFormik />
+        </div>
+        <div className="col-md-7">
+          <ForecastChart data={forecasts} />
+        </div>
+        <div className="col-md-6">
+          <SalesTable data={sales} />
+        </div>
+        <div className="col-md-6">
+          <ForecastTable data={forecasts} />
+        </div>
+      </div>
       {config && <ConfigForm initialValues={config} />}
     </div>
   );
