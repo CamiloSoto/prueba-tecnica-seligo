@@ -45,3 +45,10 @@ export interface AuthState {
 export type AuthAction =
   | { type: "[AUTH] SIGN IN" }
   | { type: "[AUTH] SIGN OUT" };
+
+export interface ForecastProps {
+  totalItems?: number;
+  totalPages?: number;
+  currentPage?: number;
+  data: Forecast[];
+}

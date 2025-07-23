@@ -13,13 +13,9 @@ import {
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-import type { Forecast } from "../types";
+import type { ForecastProps } from "../types";
 
-interface Props {
-  data: Forecast[];
-}
-
-const ForecastChart = ({ data }: Props) => {
+const ForecastChart = ({ data }: ForecastProps) => {
   const sortedData = [...data].sort(
     (a, b) =>
       new Date(a.forecastDate).getTime() - new Date(b.forecastDate).getTime()

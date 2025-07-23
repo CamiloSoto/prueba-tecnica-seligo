@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 
 import api from "../../services/api";
-import type { SalesData, Forecast, Configuration } from "../../types";
+import type { SalesData, Configuration } from "../../types";
 
 import SalesTable from "../../components/SalesTable";
 import ForecastTable from "../../components/ForecastTable";
 import ConfigForm from "../../components/ConfigForm";
 import SalesUploaderFormik from "../../components/SalesUploaderFormik";
+import type { ForecastProps } from "../../types";
 import ForecastChart from "../../components/ForecastChart";
 import Navbar from "./../../components/Navbar";
 
 const DashboardPage = () => {
   const [sales, setSales] = useState<SalesData[]>([]);
-  const [forecasts, setForecasts] = useState<Forecast[]>([]);
+  const [forecasts, setForecasts] = useState<ForecastProps>({ data: [] });
   const [config, setConfig] = useState<Configuration | null>(null);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const DashboardPage = () => {
       ]);
 
       setSales(salesRes.data);
-      setForecasts(forecastRes.data);
+      setForecasts(forecastRes.data as ForecastProps);
       setConfig(configRes.data);
     };
 

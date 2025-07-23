@@ -73,9 +73,27 @@ exports.generateForecast = async (req, res) => {
 
 exports.getForecasts = async (req, res) => {
   const userId = req.user.id;
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 5;
+  const skip = (page - 1) * limit;
   try {
-    const forecasts = await prisma.forecast.findMany({ where: { userId } });
-    res.json(forecasts);
+    const [totalItems, forecasts] = await Promise.all([
+      prisma.forecast.count({ where: { userId } }),
+      prisma.forecast.findMany({
+        where: { userId },
+        orderBy: { forecastDate: "asc" },
+        skip,
+        take: limit,
+      }),
+    ]);
+    const totalPages = Math.ceil(totalItems / limit);
+
+    res.json({
+      totalItems,
+      totalPages,
+      currentPage: page,
+      data: forecasts,
+    });
   } catch (err) {
     res.status(500).json({ error: "Error fetching forecasts" });
   }
