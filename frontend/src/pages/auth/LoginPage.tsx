@@ -1,17 +1,16 @@
 import { useState } from "react";
-import api from "../../services/api";
+import { useAuth } from "../../context/AuthContext";
 
-const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
+const LoginPage = () => {
   const [email, setEmail] = useState("admin@test.com");
   const [password, setPassword] = useState("password123");
   const [error, setError] = useState("");
 
+  const { login } = useAuth();
+
   const handleLogin = async () => {
     try {
-      const res = await api.post("/auth/login", { email, password });
-      localStorage.setItem("token", res.data.accessToken);
-      localStorage.setItem("refreshToken", res.data.refreshToken);
-      onLogin();
+      await login(email, password);
     } catch (err) {
       setError("Credenciales inválidas");
       console.log(err);

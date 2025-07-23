@@ -29,7 +29,6 @@ export interface Configuration {
   notificationSettings: string;
 }
 
-
 export interface RawSale {
   sku: string;
   fecha: string;
@@ -38,3 +37,11 @@ export interface RawSale {
   promocion_activa: boolean;
   categoria: string;
 }
+
+export interface AuthState {
+  auth: string | boolean;
+}
+
+export type AuthAction =
+  | { type: "[AUTH] SIGN IN" }
+  | { type: "[AUTH] SIGN OUT" };
