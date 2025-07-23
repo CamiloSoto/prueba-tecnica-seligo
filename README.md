@@ -22,6 +22,7 @@ Este proyecto es una implementación simplificada de un dashboard empresarial de
 - csv-parser + xlsx + papaparse (lectura de archivos)
 - PostgreSQL (persistencia de datos)
 - Prisma ORM (migraciones, seeds)
+- Swagger (documentación automática)
 
 ### 📁 DevOps
 
@@ -42,15 +43,19 @@ Este proyecto es una implementación simplificada de un dashboard empresarial de
 │   │   ├── middlewares/
 │   │   ├── routes/
 │   │   ├── services/
-│   │   └── prisma/
+│   │   ├── prisma/
+│   │   └── swagger.js
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
 │   │   ├── pages/
 │   │   ├── services/
 │   │   └── types/
+├── scripts/
+│   ├── backup.sh
+│   └── restore.sh
 ├── docker-compose.yml
-├── .env / .env.production
+├── .env.example
 └── README.md
 ```
 
@@ -109,6 +114,7 @@ Contraseña: password123
 
 - JWT con refresh token
 - Validación segura con bcrypt
+- Logout y expiración de sesión
 
 ### ✅ Carga de Datos Empresariales
 
@@ -121,6 +127,7 @@ Contraseña: password123
 - Generación por SKU basada en datos
 - Intervalos de confianza (80%, 90%, 95%)
 - Datos enriquecidos con tendencia y estacionalidad
+- Versión del modelo incluida
 
 ### ✅ Visualizaciones Ejecutivas
 
@@ -159,6 +166,7 @@ npx prisma db seed
 ### Backend
 
 ```bash
+cd backend
 npm install
 npm run dev
 ```
@@ -166,15 +174,45 @@ npm run dev
 ### Frontend
 
 ```bash
+cd frontend
 npm install
 npm run dev
+```
+
+### Backup y Restore (PostgreSQL con Docker)
+
+```bash
+chmod +x scripts/backup.sh scripts/restore.sh
+
+# Crear backup
+./scripts/backup.sh
+
+# Restaurar backup
+./scripts/restore.sh backup_2025-07-23_14-00-00.sql
 ```
 
 ---
 
 ## 📚 Documentación de la API
 
-Swagger UI: [http://localhost:4000/api/docs](http://localhost:4000/api/docs)
+Swagger UI:
+
+- Local: [http://localhost:4000/api/docs](http://localhost:4000/api/docs)
+- Producción: [https://tudominio.com/api/docs](https://tudominio.com/api/docs) ✅ (si está desplegado)
+
+---
+
+## 🌐 Despliegue en Producción (Ejemplo)
+
+- Backend: Render
+- Frontend: Vercel
+- DB: Railway
+
+## Configura `.env.production` y asegúrate de usar SSL.
+
+---
+
+## 📺 Demo en Video (opcional)
 
 ---
 
@@ -184,10 +222,6 @@ Swagger UI: [http://localhost:4000/api/docs](http://localhost:4000/api/docs)
 - Multiusuario y roles (admin, viewer)
 - Exportación de reportes en Excel o PDF
 - Websockets para notificaciones en tiempo real
-
----
-
-## 📺 Demo en Video (opcional)
 
 ---
 
