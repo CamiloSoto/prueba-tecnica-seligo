@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const swaggerDocs = require("./swagger");
 
 const authRoutes = require("./routes/auth.routes");
 const salesRoutes = require("./routes/sales.routes");
@@ -16,6 +17,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.use(morgan("dev"));
 app.use(express.json());
 
@@ -24,5 +26,7 @@ app.use("/api/sales", salesRoutes);
 app.use("/api/forecast", forecastRoutes);
 app.use("/api/config", configRoutes);
 app.use("/api/health", healthRouter);
+
+swaggerDocs(app);
 
 module.exports = app;

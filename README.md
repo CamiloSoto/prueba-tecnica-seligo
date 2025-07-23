@@ -8,27 +8,27 @@ Este proyecto es una implementación simplificada de un dashboard empresarial de
 
 ### 📈 Frontend
 
-* React.js (Vite)
-* Bootstrap 5
-* Formik + Yup (validación de formularios)
-* Recharts (gráficos interactivos)
-* SweetAlert2 (notificaciones)
+- React.js (Vite)
+- Bootstrap 5
+- Formik + Yup (validación de formularios)
+- Recharts (gráficos interactivos)
+- SweetAlert2 (notificaciones)
 
 ### 🤖 Backend
 
-* Node.js + Express.js
-* JWT (autenticación segura con refresh token)
-* Multer (carga de archivos)
-* csv-parser + xlsx + papaparse (lectura de archivos)
-* PostgreSQL (persistencia de datos)
-* Prisma ORM (migraciones, seeds)
+- Node.js + Express.js
+- JWT (autenticación segura con refresh token)
+- Multer (carga de archivos)
+- csv-parser + xlsx + papaparse (lectura de archivos)
+- PostgreSQL (persistencia de datos)
+- Prisma ORM (migraciones, seeds)
 
 ### 📁 DevOps
 
-* Docker + Docker Compose
-* Variables de entorno por ambiente
-* Health checks y restart policies
-* Railway / Render para despliegue con SSL
+- Docker + Docker Compose
+- Variables de entorno por ambiente
+- Health checks y restart policies
+- Railway / Render para despliegue con SSL
 
 ---
 
@@ -89,8 +89,8 @@ docker-compose up --build
 
 ### 4. Accede
 
-* Frontend: [http://localhost:5173](http://localhost:5173)
-* Backend: [http://localhost:4000/api](http://localhost:4000/api)
+- Frontend: [http://localhost:5173](http://localhost:5173)
+- Backend: [http://localhost:4000/api](http://localhost:4000/api)
 
 ---
 
@@ -107,32 +107,32 @@ Contraseña: password123
 
 ### ✅ Autenticación Profesional
 
-* JWT con refresh token
-* Validación segura con bcrypt
+- JWT con refresh token
+- Validación segura con bcrypt
 
 ### ✅ Carga de Datos Empresariales
 
-* Upload de CSV o Excel (hasta 10MB)
-* Validación progresiva con feedback claro
-* Drag & drop con vista previa y wizard
+- Upload de CSV o Excel (hasta 10MB)
+- Validación progresiva con feedback claro
+- Drag & drop con vista previa y wizard
 
 ### ✅ Pronóstico Automatizado
 
-* Generación por SKU basada en datos
-* Intervalos de confianza (80%, 90%, 95%)
-* Datos enriquecidos con tendencia y estacionalidad
+- Generación por SKU basada en datos
+- Intervalos de confianza (80%, 90%, 95%)
+- Datos enriquecidos con tendencia y estacionalidad
 
 ### ✅ Visualizaciones Ejecutivas
 
-* Gráficos con bandas de confianza (Recharts)
-* Filtros por SKU y fecha
-* Exportación del gráfico como PNG o PDF
+- Gráficos con bandas de confianza (Recharts)
+- Filtros por SKU y fecha
+- Exportación del gráfico como PNG o PDF
 
 ### ✅ Tablas de Datos Profesionales
 
-* Ordenamiento, filtrado, búsqueda
-* Paginación eficiente
-* Acciones masivas por selección
+- Ordenamiento, filtrado, búsqueda
+- Paginación eficiente
+- Acciones masivas por selección
 
 ---
 
@@ -140,10 +140,10 @@ Contraseña: password123
 
 Tablas principales:
 
-* `users`
-* `sales_data`
-* `forecasts`
-* `configurations`
+- `users`
+- `sales_data`
+- `forecasts`
+- `configurations`
 
 Scripts:
 
@@ -172,17 +172,22 @@ npm run dev
 
 ---
 
+## 📚 Documentación de la API
+
+Swagger UI: [http://localhost:4000/api/docs](http://localhost:4000/api/docs)
+
+---
+
 ## 📍 Mejoras Futuras
 
-* Implementación real de modelos predictivos (ARIMA, Prophet)
-* Multiusuario y roles (admin, viewer)
-* Exportación de reportes en Excel o PDF
-* Websockets para notificaciones en tiempo real
+- Implementación real de modelos predictivos (ARIMA, Prophet)
+- Multiusuario y roles (admin, viewer)
+- Exportación de reportes en Excel o PDF
+- Websockets para notificaciones en tiempo real
 
 ---
 
 ## 📺 Demo en Video (opcional)
-
 
 ---
 
