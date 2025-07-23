@@ -36,7 +36,7 @@ const SalesTable = ({ data }: { data: SalesData[] }) => {
                   onClick={() => handleGenerateForecast(sale.sku)}
                   className="btn btn-primary"
                 >
-                  Generar pronóstico
+                  Generar
                 </button>
               </td>
             </tr>

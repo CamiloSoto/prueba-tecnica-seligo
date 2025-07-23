@@ -17,6 +17,8 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    console.log("originalRequest:", originalRequest._retry);
+    console.log("status:", error.response.status);
 
     if (
       error.response &&
@@ -24,7 +26,6 @@ api.interceptors.response.use(
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
-
       try {
         const res = await axios.post(
           `${BASE_URL}/api/auth/refresh`,
