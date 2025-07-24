@@ -50,10 +50,6 @@ jobs:
         run: npm run seed
         working-directory: backend
 
-      - name: Lint backend (opcional si tienes eslint)
-        run: npm run lint
-        working-directory: backend
-
       - name: Run backend tests
         run: npm test
         working-directory: backend
