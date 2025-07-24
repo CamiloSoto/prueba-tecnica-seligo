@@ -13,6 +13,11 @@ import Navbar from "./../../components/Navbar";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
 
+type OptionType = {
+  value: string;
+  label: string;
+};
+
 const DashboardPage = () => {
   const [sales, setSales] = useState<SalesData[]>([]);
   const [salesFiltered, setSalesFiltered] = useState<SalesData[]>([]);
@@ -95,7 +100,7 @@ const DashboardPage = () => {
           <div className="col">
             <div className="mb-3">
               <label>Selecciona SKU(s):</label>
-              <Select<string, true>
+              <Select<OptionType, true>
                 isMulti
                 name="skus"
                 options={options}
