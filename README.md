@@ -198,17 +198,15 @@ chmod +x scripts/backup.sh scripts/restore.sh
 Swagger UI:
 
 - Local: [http://localhost:4000/api/docs](http://localhost:4000/api/docs)
-- Producción: [https://tudominio.com/api/docs](https://tudominio.com/api/docs) ✅ (si está desplegado)
+- Producción: [https://prueba-tecnica-seligo.onrender.com/api/docs/](https://prueba-tecnica-seligo.onrender.com/api/docs/)
 
 ---
 
-## 🌐 Despliegue en Producción (Ejemplo)
+## 🌐 Despliegue en Producción
 
 - Backend: Render
 - Frontend: Vercel
 - DB: Railway
-
-## Configura `.env.production` y asegúrate de usar SSL.
 
 ---
 
