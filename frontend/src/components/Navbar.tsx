@@ -42,11 +42,11 @@ const Navbar = () => {
                   Dashboard
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link className="nav-link" to="/upload">
                   Cargar Datos
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link className="nav-link" to="/config">
                   Configuración
