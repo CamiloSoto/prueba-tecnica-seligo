@@ -8,7 +8,8 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "generate": "prisma generate",
-    "migrate": "prisma migrate dev --name init"
+    "migrate": "prisma migrate dev --name init",
+    "seed": "prisma db seed"
   },
   "keywords": [],
   "author": "",
