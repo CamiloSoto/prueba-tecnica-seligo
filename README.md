@@ -8,21 +8,21 @@ Este proyecto es una implementación simplificada de un dashboard empresarial de
 
 ### 📈 Frontend
 
-- React.js (Vite)
-- Bootstrap 5
-- Formik + Yup (validación de formularios)
-- Recharts (gráficos interactivos)
-- SweetAlert2 (notificaciones)
+- [React.js (Vite)](https://vitejs.dev/)
+- [Bootstrap 5](https://getbootstrap.com/)
+- [Formik](https://formik.org/) + [Yup](https://github.com/jquense/yup)
+- [Recharts](https://recharts.org/)
+- [SweetAlert2](https://sweetalert2.github.io/)
 
 ### 🤖 Backend
 
-- Node.js + Express.js
-- JWT (autenticación segura con refresh token)
-- Multer (carga de archivos)
-- csv-parser + xlsx + papaparse (lectura de archivos)
-- PostgreSQL (persistencia de datos)
-- Prisma ORM (migraciones, seeds)
-- Swagger (documentación automática)
+- [Node.js](https://nodejs.org/) + [Express.js](https://expressjs.com/)
+- [JWT](https://jwt.io/) con refresh tokens
+- [Multer](https://github.com/expressjs/multer)
+- [csv-parser](https://www.npmjs.com/package/csv-parser), [xlsx](https://www.npmjs.com/package/xlsx), [PapaParse](https://www.papaparse.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Prisma ORM](https://www.prisma.io/)
+- [Swagger](https://swagger.io/tools/swagger-ui/)
 
 ### 📁 DevOps
 
@@ -198,14 +198,14 @@ chmod +x scripts/backup.sh scripts/restore.sh
 Swagger UI:
 
 - Local: [http://localhost:4000/api/docs](http://localhost:4000/api/docs)
-- Producción: [https://prueba-tecnica-seligo.onrender.com/api/docs/](https://prueba-tecnica-seligo.onrender.com/api/docs/)
+- Producción: [https://prueba-tecnica-seligo.onrender.com/api/docs/](https://prueba-tecnica-seligo.onrender.com/api/docs)
 
 ---
 
 ## 🌐 Despliegue en Producción
 
-- Backend: Render
-- Frontend: Vercel
+- 🔗 Frontend (Vercel): [https://prueba-tecnica-seligo.vercel.app](https://prueba-tecnica-seligo.vercel.app)
+- 🔗 Backend (Render): [https://prueba-tecnica-seligo.onrender.com](https://prueba-tecnica-seligo.onrender.com/api/docs)
 - DB: Railway
 
 ---
@@ -216,10 +216,10 @@ Swagger UI:
 
 ## 📍 Mejoras Futuras
 
-- Implementación real de modelos predictivos (ARIMA, Prophet)
-- Multiusuario y roles (admin, viewer)
-- Exportación de reportes en Excel o PDF
-- Websockets para notificaciones en tiempo real
+- Integración con herramientas BI (Power BI / Tableau)
+- Dashboard responsivo para móviles
+- Validación de datos por IA para detección de outliers
+- Uploads asíncronos con seguimiento en tiempo real
 
 ---
 

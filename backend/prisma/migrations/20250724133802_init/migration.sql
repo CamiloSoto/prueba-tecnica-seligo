@@ -48,8 +48,8 @@ CREATE TABLE "Configuration" (
     "userId" INTEGER NOT NULL,
     "confidenceLevel" DOUBLE PRECISION NOT NULL,
     "forecastHorizon" INTEGER NOT NULL,
-    "alertThresholds" TEXT NOT NULL,
-    "notificationSettings" TEXT NOT NULL,
+    "alertThresholds" JSONB NOT NULL,
+    "notificationSettings" JSONB NOT NULL,
 
     CONSTRAINT "Configuration_pkey" PRIMARY KEY ("id")
 );
