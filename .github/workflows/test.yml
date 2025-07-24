@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  backend-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: seligo
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: prueba_tecnica
+        ports:
+          - 5432:5432
+
+    env:
+      DATABASE_URL: postgresql://seligo:${{ secrets.POSTGRES_PASSWORD }}@postgres:5432/prueba_tecnica
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.17.1
+
+      # (Opcional) Cache de dependencias para acelerar builds
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install backend dependencies
+        run: npm ci
+        working-directory: backend
+
+      - name: Wait for PostgreSQL
+        run: |
+          until pg_isready -h postgres -p 5432; do
+            echo "Waiting for postgres..."
+            sleep 2
+          done
+        env:
+          PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+        working-directory: backend
+
+      - name: Run Prisma migrations
+        run: npx prisma migrate deploy
+        working-directory: backend
+
+      - name: Seed database
+        run: npm run seed
+        working-directory: backend
+
+      - name: Lint backend (opcional si tienes eslint)
+        run: npm run lint
+        working-directory: backend
+
+      - name: Run backend tests
+        run: npm test
+        working-directory: backend
