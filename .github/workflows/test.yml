@@ -12,18 +12,8 @@ jobs:
   backend-test:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: seligo
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: prueba_tecnica
-        ports:
-          - 5432:5432
-
     env:
-      DATABASE_URL: postgresql://seligo:${{ secrets.POSTGRES_PASSWORD }}@postgres:5432/prueba_tecnica
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
       JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
 
@@ -36,7 +26,6 @@ jobs:
         with:
           node-version: 18.18.0
 
-      # (Opcional) Cache de dependencias para acelerar builds
       - name: Cache Node.js modules
         uses: actions/cache@v3
         with:
@@ -48,15 +37,6 @@ jobs:
       - name: Install backend dependencies
         run: npm ci
         working-directory: backend
-
-      - name: Wait for PostgreSQL
-        run: |
-          until pg_isready -h postgres -p 5432; do
-            echo "Waiting for postgres..."
-            sleep 2
-          done
-        env:
-          PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
 
       - name: Generate Prisma client
         run: npx prisma generate
