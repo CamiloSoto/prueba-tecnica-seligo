@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import type { Forecast } from "../types";
 
 const ITEMS_PER_PAGE = 5;
+const MAX_VISIBLE_PAGES = 5;
 
 const ForecastTable = ({ data }: { data: Forecast[] }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,6 +18,40 @@ const ForecastTable = ({ data }: { data: Forecast[] }) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
+  };
+
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+
+    if (totalPages <= MAX_VISIBLE_PAGES) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      const half = Math.floor(MAX_VISIBLE_PAGES / 2);
+      let start = Math.max(2, currentPage - half);
+      let end = Math.min(totalPages - 1, currentPage + half);
+
+      if (currentPage <= half + 1) {
+        end = MAX_VISIBLE_PAGES - 1;
+      }
+
+      if (currentPage >= totalPages - half) {
+        start = totalPages - (MAX_VISIBLE_PAGES - 2);
+      }
+
+      pages.push(1);
+      if (start > 2) pages.push("ellipsis-start");
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+
+      if (end < totalPages - 1) pages.push("ellipsis-end");
+      pages.push(totalPages);
+    }
+
+    return pages;
   };
 
   return (
@@ -56,19 +91,29 @@ const ForecastTable = ({ data }: { data: Forecast[] }) => {
             </button>
           </li>
 
-          {Array.from({ length: totalPages }, (_, i) => (
-            <li
-              key={i + 1}
-              className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
-            >
-              <button
-                className="page-link"
-                onClick={() => handlePageChange(i + 1)}
+          {getPageNumbers().map((page, index) => {
+            if (page === "ellipsis-start" || page === "ellipsis-end") {
+              return (
+                <li key={index} className="page-item disabled">
+                  <span className="page-link">…</span>
+                </li>
+              );
+            }
+
+            return (
+              <li
+                key={page}
+                className={`page-item ${currentPage === page ? "active" : ""}`}
               >
-                {i + 1}
-              </button>
-            </li>
-          ))}
+                <button
+                  className="page-link"
+                  onClick={() => handlePageChange(Number(page))}
+                >
+                  {page}
+                </button>
+              </li>
+            );
+          })}
 
           <li
             className={`page-item ${

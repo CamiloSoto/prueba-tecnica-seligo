@@ -6,6 +6,7 @@ import LoginPage from "./../pages/auth/LoginPage";
 import DashboardPage from "./../pages/app/DashboardPage";
 import NotFoundPage from "./../pages/NotFoundPage";
 import ConfigPage from "../pages/app/ConfigPage";
+import UploadPage from "../pages/app/UploadPage";
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -16,6 +17,7 @@ const AppRouter = () => (
 
       <Route element={<PrivateRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/upload" element={<UploadPage />} />
         <Route path="/config" element={<ConfigPage />} />
       </Route>
       <Route path="/" element={<Navigate to="/dashboard" />} />

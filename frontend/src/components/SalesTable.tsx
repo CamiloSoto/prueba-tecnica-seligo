@@ -3,17 +3,10 @@ import type { SalesData } from "../types";
 import api from "../services/api";
 
 const ITEMS_PER_PAGE = 5;
+const MAX_VISIBLE_PAGES = 5;
 
 const SalesTable = ({ data }: { data: SalesData[] }) => {
   const [currentPage, setCurrentPage] = useState(1);
-
-  const handleGenerateForecast = async (sku: string) => {
-    await api.post("/forecast/generate", {
-      sku,
-      horizon: 6,
-      confidenceLevel: 0.95,
-    });
-  };
 
   const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
 
@@ -26,6 +19,48 @@ const SalesTable = ({ data }: { data: SalesData[] }) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
+  };
+
+  const handleGenerateForecast = async (sku: string) => {
+    await api.post("/forecast/generate", {
+      sku,
+      horizon: 6,
+      confidenceLevel: 0.95,
+    });
+  };
+
+  const getPageNumbers = () => {
+    const pages = [];
+
+    if (totalPages <= MAX_VISIBLE_PAGES) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      const half = Math.floor(MAX_VISIBLE_PAGES / 2);
+      let start = Math.max(2, currentPage - half);
+      let end = Math.min(totalPages - 1, currentPage + half);
+
+      if (currentPage <= half + 1) {
+        end = MAX_VISIBLE_PAGES - 1;
+      }
+
+      if (currentPage >= totalPages - half) {
+        start = totalPages - (MAX_VISIBLE_PAGES - 2);
+      }
+
+      pages.push(1);
+      if (start > 2) pages.push("ellipsis-start");
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+
+      if (end < totalPages - 1) pages.push("ellipsis-end");
+      pages.push(totalPages);
+    }
+
+    return pages;
   };
 
   return (
@@ -63,7 +98,6 @@ const SalesTable = ({ data }: { data: SalesData[] }) => {
         </tbody>
       </table>
 
-      {/* Paginación Bootstrap */}
       <nav>
         <ul className="pagination justify-content-center">
           <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
@@ -75,19 +109,29 @@ const SalesTable = ({ data }: { data: SalesData[] }) => {
             </button>
           </li>
 
-          {Array.from({ length: totalPages }, (_, i) => (
-            <li
-              key={i + 1}
-              className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
-            >
-              <button
-                className="page-link"
-                onClick={() => handlePageChange(i + 1)}
+          {getPageNumbers().map((page, index) => {
+            if (page === "ellipsis-start" || page === "ellipsis-end") {
+              return (
+                <li key={index} className="page-item disabled">
+                  <span className="page-link">...</span>
+                </li>
+              );
+            }
+
+            return (
+              <li
+                key={page}
+                className={`page-item ${currentPage === page ? "active" : ""}`}
               >
-                {i + 1}
-              </button>
-            </li>
-          ))}
+                <button
+                  className="page-link"
+                  onClick={() => handlePageChange(Number(page))}
+                >
+                  {page}
+                </button>
+              </li>
+            );
+          })}
 
           <li
             className={`page-item ${
