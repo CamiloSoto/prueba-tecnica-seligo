@@ -5,7 +5,17 @@ const UploadPage = () => {
   return (
     <>
       <Navbar />
-      <SalesUploaderFormik />
+      <div className="container mt-4">
+        <div className="row mt-4">
+          <div className="col-md-8 mx-auto">
+            <div className="card">
+              <div className="card-body">
+                <SalesUploaderFormik />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

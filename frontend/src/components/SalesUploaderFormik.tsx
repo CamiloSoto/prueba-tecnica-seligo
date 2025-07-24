@@ -149,7 +149,7 @@ const SalesUploaderFormik = () => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} className="mt-5">
+    <form onSubmit={formik.handleSubmit}>
       <h4>Cargar Archivo de Ventas</h4>
 
       <div
