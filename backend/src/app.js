@@ -13,7 +13,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://prueba-tecnica-seligo.vercel.app",
+      "https://prueba-tecnica-seligo.onrender.com",
+    ],
     credentials: true,
   })
 );
