@@ -82,7 +82,7 @@ const ConfigPage: React.FC = () => {
               </select>
               {formik.touched.confidenceLevel &&
               formik.errors.confidenceLevel ? (
-                <div className="alert alert-danger">
+                <div className="alert alert-danger mt-2">
                   {formik.errors.confidenceLevel}
                 </div>
               ) : null}
@@ -99,7 +99,7 @@ const ConfigPage: React.FC = () => {
               />
               {formik.touched.forecastHorizon &&
               formik.errors.forecastHorizon ? (
-                <div className="alert alert-danger">
+                <div className="alert alert-danger mt-2">
                   {formik.errors.forecastHorizon}
                 </div>
               ) : null}
@@ -116,7 +116,7 @@ const ConfigPage: React.FC = () => {
               />
               {formik.touched.alertThresholds?.min &&
               formik.errors.alertThresholds?.min ? (
-                <div className="alert alert-danger">
+                <div className="alert alert-danger mt-2">
                   {formik.errors.alertThresholds?.min}
                 </div>
               ) : null}
@@ -133,7 +133,7 @@ const ConfigPage: React.FC = () => {
               />
               {formik.touched.alertThresholds?.max &&
               formik.errors.alertThresholds?.max ? (
-                <div className="alert alert-danger">
+                <div className="alert alert-danger  mt-2">
                   {formik.errors.alertThresholds?.max}
                 </div>
               ) : null}
@@ -145,7 +145,12 @@ const ConfigPage: React.FC = () => {
                 name="notificationSettings.email"
                 checked={formik.values.notificationSettings?.email ?? ""}
                 className="form-check-input"
-                onChange={formik.handleChange}
+                onChange={(e) =>
+                  formik.setFieldValue(
+                    "notificationSettings.email",
+                    e.target.checked
+                  )
+                }
               />
               <label
                 className="form-check-label"
@@ -156,7 +161,7 @@ const ConfigPage: React.FC = () => {
 
               {formik.touched.notificationSettings?.email &&
               formik.errors.notificationSettings?.email ? (
-                <div className="alert alert-danger">
+                <div className="alert alert-danger mt-2">
                   {formik.errors.notificationSettings?.email}
                 </div>
               ) : null}
