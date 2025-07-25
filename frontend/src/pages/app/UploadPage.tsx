@@ -3,14 +3,14 @@ import Step1Upload from "../../components/upload/Step1Upload";
 import Step2Mapping from "../../components/upload/Step2Mapping";
 import Step3Confirm from "../../components/upload/Step3Confirm";
 import type { RawSale } from "../../types";
+import Navbar from "../../components/Navbar";
 
 const steps = ["Subir archivo", "Mapear columnas", "Confirmar"];
 
 const UploadPage = () => {
   const [step, setStep] = useState(0);
-  const [fileData, setFileData] = useState<
-    Record<string, string | number | boolean>[]
-  >([]);
+  const [file, setFile] = useState<File | null>(null);
+  const [fileData, setFileData] = useState<RawSale[]>([]);
   const [mappedData, setMappedData] = useState<RawSale[]>([]);
 
   const next = () => setStep((prev) => prev + 1);
@@ -18,6 +18,7 @@ const UploadPage = () => {
 
   return (
     <>
+    <Navbar/>
       <div className="container mt-5">
         <h3 className="mb-4">Módulo Avanzado de Carga de Datos</h3>
 
@@ -38,7 +39,7 @@ const UploadPage = () => {
           ))}
         </div>
 
-        {step === 0 && <Step1Upload onNext={next} setFileData={setFileData} />}
+        {step === 0 && <Step1Upload onNext={next} setFileData={setFileData} setFile={setFile} />}
         {step === 1 && (
           <Step2Mapping
             data={fileData}
@@ -47,7 +48,7 @@ const UploadPage = () => {
             setMappedData={setMappedData}
           />
         )}
-        {step === 2 && <Step3Confirm mappedData={mappedData} onBack={back} />}
+        {step === 2 && <Step3Confirm mappedData={mappedData} onBack={back} file={file} />}
       </div>
     </>
   );

@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import type { RawSale } from "../../types";
 
 interface Step2MappingProps {
-  data: Record<string, string | number | boolean>[];
+  data: RawSale[];
   onNext: () => void;
   onBack: () => void;
   setMappedData: (data: RawSale[]) => void;

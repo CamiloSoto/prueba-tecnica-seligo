@@ -20,7 +20,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-      <Link className="navbar-brand" to="/">
+      <Link className="navbar-brand" to="/dashboard">
         ForecastApp
       </Link>
 
@@ -38,7 +38,7 @@ const Navbar = () => {
           <>
             <ul className="navbar-nav me-auto">
               <li className="nav-item">
-                <Link className="nav-link" to="/">
+                <Link className="nav-link" to="/dashboard">
                   Dashboard
                 </Link>
               </li>
