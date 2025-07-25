@@ -17,6 +17,24 @@ async function main() {
   });
 
   console.log("✅ Usuario creado:", user);
+
+  const config = await prisma.configuration.upsert({
+    where: { userId: 1 },
+    update: {},
+    create: {
+      userId: 1,
+      confidenceLevel: 0.9,
+      forecastHorizon: 4,
+      alertThresholds: {
+        max: 10000,
+        min: 100,
+      },
+      notificationSettings: {
+        email: false,
+      },
+    },
+  });
+  console.log("✅ Congiguration created:", config);
 }
 
 main()
