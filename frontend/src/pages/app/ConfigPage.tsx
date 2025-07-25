@@ -24,7 +24,7 @@ const ConfigPage: React.FC = () => {
         max: Yup.number().moreThan(Yup.ref("min")).required("Requerido"),
       }),
       notificationSettings: Yup.object({
-        email: Yup.boolean(),
+        email: Yup.boolean().required(),
       }),
     }),
     onSubmit: async (values) => {
@@ -80,6 +80,12 @@ const ConfigPage: React.FC = () => {
                 <option value={0.9}>0.9</option>
                 <option value={0.95}>0.95</option>
               </select>
+              {formik.touched.confidenceLevel &&
+              formik.errors.confidenceLevel ? (
+                <div className="alert alert-danger">
+                  {formik.errors.confidenceLevel}
+                </div>
+              ) : null}
             </div>
 
             <div className="mb-3">
@@ -91,6 +97,12 @@ const ConfigPage: React.FC = () => {
                 value={formik.values.forecastHorizon}
                 onChange={formik.handleChange}
               />
+              {formik.touched.forecastHorizon &&
+              formik.errors.forecastHorizon ? (
+                <div className="alert alert-danger">
+                  {formik.errors.forecastHorizon}
+                </div>
+              ) : null}
             </div>
 
             <div className="mb-3">
@@ -102,6 +114,12 @@ const ConfigPage: React.FC = () => {
                 value={formik.values.alertThresholds?.min ?? ""}
                 onChange={formik.handleChange}
               />
+              {formik.touched.alertThresholds?.min &&
+              formik.errors.alertThresholds?.min ? (
+                <div className="alert alert-danger">
+                  {formik.errors.alertThresholds?.min}
+                </div>
+              ) : null}
             </div>
 
             <div className="mb-3">
@@ -113,6 +131,12 @@ const ConfigPage: React.FC = () => {
                 value={formik.values.alertThresholds?.max ?? ""}
                 onChange={formik.handleChange}
               />
+              {formik.touched.alertThresholds?.max &&
+              formik.errors.alertThresholds?.max ? (
+                <div className="alert alert-danger">
+                  {formik.errors.alertThresholds?.max}
+                </div>
+              ) : null}
             </div>
 
             <div className="mb-3">
@@ -129,6 +153,13 @@ const ConfigPage: React.FC = () => {
               >
                 Notificaciones por correo
               </label>
+
+              {formik.touched.notificationSettings?.email &&
+              formik.errors.notificationSettings?.email ? (
+                <div className="alert alert-danger">
+                  {formik.errors.notificationSettings?.email}
+                </div>
+              ) : null}
             </div>
 
             <button className="btn btn-primary" type="submit">
