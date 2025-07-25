@@ -24,7 +24,7 @@ const ConfigPage: React.FC = () => {
         max: Yup.number().moreThan(Yup.ref("min")).required("Requerido"),
       }),
       notificationSettings: Yup.object({
-        email: Yup.boolean().required(),
+        email: Yup.boolean(),
       }),
     }),
     onSubmit: async (values) => {
