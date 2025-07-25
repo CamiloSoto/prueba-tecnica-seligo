@@ -45,3 +45,5 @@ export interface AuthState {
 export type AuthAction =
   | { type: "[AUTH] SIGN IN" }
   | { type: "[AUTH] SIGN OUT" };
+
+  export type UnknownObject = { [key: string]: unknown };
